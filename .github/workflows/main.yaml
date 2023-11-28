@@ -1,15 +1,11 @@
 name: Hyperexecute-Playwright
 
 on:
-  push:
-    paths-ignore:
-      - '**/*.md'  # Adjust this pattern to match the files you want to include/exclude
-    branches:
-      - main
-
+  workflow_dispatch:
+  
 jobs:
   HyperExecute-Playwright:
-    if: contains(github.event.head_commit.message, 'Hyperexecute')
+    if: contains(github.event.head_commit.message, 'hyperexecute')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -22,6 +18,6 @@ jobs:
         shell: bash
         run: |
           curl https://downloads.lambdatest.com/hyperexecute/linux/hyperexecute -o hyperexecute
-          chmod u+x hyperexecute
+          chmod +x hyperexecute
           ./hyperexecute --user ${{ secrets.username }} --key ${{ secrets.accesskey }} --download-artifacts --config yaml/win/.hyperexecute_autosplits.yaml
           echo "Test completion"
