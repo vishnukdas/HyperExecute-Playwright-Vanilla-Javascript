@@ -1,11 +1,15 @@
 name: Hyperexecute-Playwright
+
 on:
-  schedule:
-    - cron: '30 5,17 * * *'
-  workflow_dispatch:
-  
+  push:
+    paths-ignore:
+      - '**/*.md'  # Adjust this pattern to match the files you want to include/exclude
+    branches:
+      - main
+
 jobs:
   HyperExecute-Playwright:
+    if: contains(github.event.head_commit.message, 'Hyperexecute')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -21,4 +25,3 @@ jobs:
           chmod +x hyperexecute
           ./hyperexecute --user ${{ secrets.username }} --key ${{ secrets.accesskey }} --download-artifacts --config yaml/win/.hyperexecute_autosplits.yaml
           echo "Test completion"
- 
