@@ -5,7 +5,6 @@ on:
   
 jobs:
   HyperExecute-Playwright:
-    if: contains(github.event.head_commit.message, 'hyperexecute')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
